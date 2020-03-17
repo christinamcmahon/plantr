@@ -3,19 +3,6 @@ module Api::V1
     before_action :find_user, only: [:show, :edit, :update, :destroy]
     skip_before_action :authorized, only: [:create]
 
-    def index
-      @users = User.all
-      render json: @users
-    end
-
-    def show
-      render json: @user
-    end
-
-    def new
-      @user = User.new
-    end
-
     def profile
       render json: { user: UserSerializer.new(current_user) }, status: :accepted
     end
