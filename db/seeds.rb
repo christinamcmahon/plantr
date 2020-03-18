@@ -1,16 +1,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-# test user
-test_user = User.create(
-  name: "Test User",
-  username: "test_user",
-  password_digest: "test",
-  avatar_url: "test_avatar",
-  email: "test@gmail.com",
-  notification: false,
-)
-
 # sample plants
 pothos = Plant.create(
   name: "Pothos",
@@ -82,15 +72,19 @@ money = Plant.create(
   image_url: "https://cdn.shopify.com/s/files/1/0847/2842/products/Pilea-Money-Plant-Highgate-Flowers_grande.jpg?v=1561023156",
 )
 
-# create test relationships
-UsersPlant.create(
-  user_id: test_user.id,
-  plant_id: pothos.id,
+# test user and associations
+christina = User.create(
+  name: "Christina",
+  username: "c",
+  password: "1",
+  avatar_url: "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+  email: "test@gmail.com",
+  notification: true,
 )
 
-UsersPlant.create(
-  user_id: test_user.id,
-  plant_id: dragon.id,
+christinas_pothos = UsersPlant.create(
+  user_id: christina.id,
+  plant_id: pothos.id,
 )
 
 puts "Seeded"

@@ -7,6 +7,7 @@ module Api::V1
     end
 
     def create
+      # byebug
       @user = User.create(
         username: params[:user][:username],
         password: params[:user][:password],
