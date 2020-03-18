@@ -1,6 +1,5 @@
 module Api::V1
   class UsersController < ApplicationController
-    before_action :find_user, only: [:show, :edit, :update, :destroy]
     skip_before_action :authorized, only: [:create]
 
     def profile
@@ -22,25 +21,6 @@ module Api::V1
       else
         render json: { error: "failed to create user" }, status: :not_acceptable
       end
-    end
-
-    def destroy
-      @user.destroy
-    end
-
-    def update
-      @user.update(user_params)
-      render json: @user
-    end
-
-    private
-
-    def find_user
-      @user = User.find(params[:id])
-    end
-
-    def user_params
-      params.permit(:name, :username, :password, :avatar_url, :email, :notification)
     end
   end
 end
