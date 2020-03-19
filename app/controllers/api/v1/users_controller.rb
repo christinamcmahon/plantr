@@ -6,9 +6,12 @@ module Api::V1
       render json: { user: UserSerializer.new(current_user) }, status: :accepted
     end
 
+    def new
+      @user = User.new
+    end
+
     def create
-      # byebug
-      @user = User.create(
+      @user = User.new(
         username: params[:user][:username],
         password: params[:user][:password],
         name: params[:user][:name],
@@ -16,9 +19,10 @@ module Api::V1
         email: params[:user][:email],
         notification: params[:user][:notification],
       )
-      if @user.valid?
+      byebug
+      if @user.valid? && @user.save
         @token = encode_token({ user_id: @user.id })
-        render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
+        render json: { user: @user, jwt: @token }, status: :created
       else
         render json: { error: "failed to create user" }, status: :not_acceptable
       end
