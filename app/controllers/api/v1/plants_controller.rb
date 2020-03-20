@@ -1,6 +1,6 @@
 module Api::V1
   class PlantsController < ApplicationController
-    before_action :find_plant, only: [:update, :edit, :show]
+    before_action :find_plant, only: [:update, :edit, :show, :destroy]
     skip_before_action :authorized # for testing only
 
     def index
@@ -34,6 +34,11 @@ module Api::V1
         puts "Errors= #{@plant.errors.full_messages.join(", ")}"
         render json: { message: "plant NOT updated because #{@plant.errors.full_messages.join(", ")}", success: false, data: @plant.errors.full_messages }, status: 406
       end
+    end
+
+    def destroy
+      @plant.destroy
+      render json: { message: "plant successfully deleted.", success: true, data: @plant }
     end
 
     private
