@@ -19,7 +19,6 @@ module Api::V1
         email: params[:user][:email],
         notification: params[:user][:notification],
       )
-      byebug
       if @user.valid? && @user.save
         @token = encode_token({ user_id: @user.id })
         render json: { user: @user, jwt: @token }, status: :created
