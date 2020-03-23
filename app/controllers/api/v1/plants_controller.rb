@@ -1,7 +1,7 @@
 module Api::V1
   class PlantsController < ApplicationController
     before_action :find_plant, only: [:update, :edit, :show, :destroy]
-    skip_before_action :authorized # for testing only
+    # skip_before_action :authorized # for testing only
 
     def index
       plants = Plant.all
