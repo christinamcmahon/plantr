@@ -1,6 +1,15 @@
 class Api::V1::AuthController < ApplicationController
   # skip_before_action :authorized, only: [:create, :profile]
 
+  def show
+    user = current_user
+    if logged_in?
+      render json: { id: user.id, username: user.username }
+    else
+      render json: {error: 'No user could be found'}, status: 401
+    end
+  end
+
   # Login
   def create
     # byebug
