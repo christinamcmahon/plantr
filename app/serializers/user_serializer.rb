@@ -7,13 +7,11 @@ class UserSerializer < ActiveModel::Serializer
         plants: self.object.plants.map { |plant|
           # byebug
           {
-            plant: {
               id: plant.id,
               name: plant.name,
               notes: plant.notes,
               water_frequency: plant.water_frequency,
               image_url: plant.image_url,
-            },
           }
         },
       }
