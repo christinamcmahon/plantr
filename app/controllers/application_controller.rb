@@ -11,7 +11,8 @@ class ApplicationController < ActionController::API
 
   def decoded_token
     if auth_header()
-      token = auth_header.split(" ")[1] #[Bearer, <token>]
+      # byebug
+      token = auth_header 
       begin
         JWT.decode(token, ENV["jwt_secret"], true, algorithm: "HS256")
         # JWT.decode => [{ "user_id"=>"2" }, { "alg"=>"HS256" }]
