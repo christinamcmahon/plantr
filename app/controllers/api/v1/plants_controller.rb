@@ -17,8 +17,19 @@ module Api::V1
     end
 
     def create
-      plant = Plant.new(plant_params)
+      plant = Plant.new(
+        id: params[:plant][:newplant][:id], 
+        name: params[:plant][:newplant][:name], 
+        notes: params[:plant][:newplant][:notes],
+        water_frequency: params[:plant][:newplant][:water_frequency],
+        image_url: params[:plant][:newplant][:image_url]
+      )
       plant.save
+      usersPlant = UsersPlant.create(
+        plant_id: plant.id, 
+        user_id: params[:plant][:userId]
+      )
+      byebug
       render json: plant
     end
 
@@ -49,6 +60,7 @@ module Api::V1
 
     def plant_params
       params.require(:plant).permit(:name, :notes, :water_frequency, :image_url)
+      # params.permit(:plant, :userId)
     end
   end
 end
